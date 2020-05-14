@@ -79,6 +79,19 @@ module.exports = function () {
             },
           },
         },
+        {
+          name: 'embroider',
+          npm: {
+            devDependencies: {
+              '@embroider/core': '*',
+              '@embroider/webpack': '*',
+              '@embroider/compat': '*',
+            },
+          },
+          env: {
+            EMBROIDER: 'true',
+          },
+        },
       ],
     };
   });

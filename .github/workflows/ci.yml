@@ -60,6 +60,20 @@ jobs:
         with:
           coverageCommand: yarn node-test
 
+  test-node-embroider:
+    name: Tests / Node (embroider)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Run yarn install
+        run: yarn install --non-interactive
+      - run: EMBROIDER=true yarn node-test
+
   test-float:
     name: Tests / floating dependencies
     runs-on: ubuntu-latest
@@ -77,6 +91,7 @@ jobs:
   try-scenarios:
     name: Tests / ${{ matrix.ember-try-scenario }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.embroider }}
     needs: [lint, test-ember]
 
     strategy:
@@ -89,6 +104,7 @@ jobs:
           - ember-canary
           - ember-default-with-jquery
           - ember-classic
+          - embroider
 
     steps:
       - uses: actions/checkout@v1

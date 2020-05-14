@@ -14,5 +14,16 @@ module.exports = function (defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
+  if (process.env.EMBROIDER) {
+    const { Webpack } = require('@embroider/webpack');
+    return require('@embroider/compat').compatBuild(app, Webpack, {
+      packagerOptions: {
+        webpackConfig: {
+          devtool: false,
+        },
+      },
+    });
+  }
+
   return app.toTree();
 };
